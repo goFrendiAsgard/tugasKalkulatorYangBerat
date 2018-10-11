@@ -36,18 +36,28 @@ public class Kalkulator {
         return Float.toString(node.dataAngka);
     }
 
+    static boolean isLeaf(Node node) {
+        return node.left == null && node.right == null;
+    }
+
     static String parsePrefix(Node node) {
-        return "";
-        // gimana hayo?
+        if (isLeaf(node)) {
+            return printNodeData(node);
+        }
+        return printNodeData(node) + " " + parsePrefix(node.left) + " " + parsePrefix(node.right);
     }
 
     static String parseSufix(Node node) {
-        return "";
-        // gimana hayo?
+        if (isLeaf(node)) {
+            return printNodeData(node);
+        }
+        return parseSufix(node.left) + " " + parseSufix(node.right) + " " + printNodeData(node);
     }
 
     static String parseInfix(Node node) {
-        return "";
-        // gimana hayo?
+        if (isLeaf(node)) {
+            return printNodeData(node);
+        }
+        return parseInfix(node.left) + " " + printNodeData(node) + " " + parseInfix(node.right);
     }
 }
