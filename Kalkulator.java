@@ -1,4 +1,5 @@
 import java.util.Stack;
+// how to use stack: http://www.tutorialspoint.com/java/java_stack_class.htm
 
 class Node {
     String data; // number, +, -, *, /
@@ -8,7 +9,12 @@ class Node {
 
 public class Kalkulator {
     static Node root;
+    static Stack st;
+    static Stack tmp;
+
     public static void main(String[] args) {
+        st = new Stack();
+        tmp = new Stack();
         root = new Node();
         root.data = "*";
         root.left = new Node();
@@ -28,6 +34,18 @@ public class Kalkulator {
         System.out.println(parsePrefix(root)); // * + 5 4 - 5 4
         System.out.println(parsePostfix(root));  // 5 4 + 5 4 - *
         System.out.println(parseInfix(root));  // 5 + 4 * 5 - 4
+        toStack(root);
+        System.out.println(st);
+    }
+
+    static void toStack(Node node) {
+        if (isLeaf(node)) {
+            st.push(node.data);
+        } else {
+            st.push(node.data);
+            toStack(node.left);
+            toStack(node.right);
+        }
     }
 
     static boolean isLeaf(Node node) {
