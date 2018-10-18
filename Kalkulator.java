@@ -35,7 +35,62 @@ public class Kalkulator {
         System.out.println(parsePostfix(root));  // 5 4 + 5 4 - *
         System.out.println(parseInfix(root));  // 5 + 4 * 5 - 4
         toStack(root);
-        System.out.println(st);
+        System.out.println(st); // [*, +, 5, 4, -, 5, 4]
+        System.out.println(calculateAll()); // 9.0
+    }
+
+    static String calculateAll() {
+        while(true) {
+            /*
+            System.out.println("Isi stack");
+            System.out.println(st);
+            System.out.println(tmp);
+            */
+            String data = (String) st.pop();
+            tmp.push(data);
+            if (!isNumber(data)) {
+                String operator = (String) tmp.pop();
+                String operand1 = (String) tmp.pop();
+                String operand2 = (String) tmp.pop();
+                String result = calculate(operator, operand1, operand2);
+                st.push(result);
+                while(!tmp.isEmpty()) {
+                    st.push(tmp.pop());
+                }
+            }
+            if(st.isEmpty()) {
+                return (String) tmp.pop();
+            }
+        }
+    }
+
+    static String calculate(String operator, String operand1, String operand2) {
+        try {
+            float n1 = Float.parseFloat(operand1);
+            float n2 = Float.parseFloat(operand2);
+            float n3 = 0;
+            if (operator.equals("+")) {
+                n3 = n1 + n2;
+            } else if (operator.equals("-")) {
+                n3 = n1 - n2;
+            } else if (operator.equals("*")) {
+                n3 = n1 * n2;
+            } else if (operator.equals("/")) {
+                n3 = n1 / n2;
+            }
+            return Float.toString(n3);
+        } catch (Exception e) {
+            return "0";
+        }
+    }
+
+    static boolean isNumber(String str) {
+        try {
+            float x = Float.parseFloat(str);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     static void toStack(Node node) {
