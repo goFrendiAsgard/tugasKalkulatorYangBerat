@@ -9,12 +9,12 @@ class Node {
 
 public class Kalkulator {
     static Node root;
-    static Stack st;
-    static Stack tmp;
+    static Stack<String> st;
+    static Stack<String> tmp;
 
     public static void main(String[] args) {
-        st = new Stack();
-        tmp = new Stack();
+        st = new Stack<String>();
+        tmp = new Stack<String>();
         root = new Node();
         root.data = "*";
         root.left = new Node();
@@ -46,12 +46,12 @@ public class Kalkulator {
             System.out.println(st);
             System.out.println(tmp);
             */
-            String data = (String) st.pop();
+            String data = st.pop();
             tmp.push(data);
             if (!isNumber(data)) {
-                String operator = (String) tmp.pop();
-                String operand1 = (String) tmp.pop();
-                String operand2 = (String) tmp.pop();
+                String operator = tmp.pop();
+                String operand1 = tmp.pop();
+                String operand2 = tmp.pop();
                 String result = calculate(operator, operand1, operand2);
                 st.push(result);
                 while(!tmp.isEmpty()) {
@@ -59,7 +59,7 @@ public class Kalkulator {
                 }
             }
             if(st.isEmpty()) {
-                return (String) tmp.pop();
+                return tmp.pop();
             }
         }
     }
