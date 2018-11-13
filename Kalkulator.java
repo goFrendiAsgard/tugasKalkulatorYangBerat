@@ -41,11 +41,9 @@ public class Kalkulator {
 
     static String calculateAll() {
         while(true) {
-            /*
             System.out.println("Isi stack");
             System.out.println(st);
             System.out.println(tmp);
-            */
             String data = st.pop();
             tmp.push(data);
             if (!isNumber(data)) {
